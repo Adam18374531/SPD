@@ -1,0 +1,3 @@
+C:/Users/adam9/OneDrive/Pulpit/Studia/6 Semestr/SPD/2/cmake-build-debug/CMakeFiles/2.dir
+C:/Users/adam9/OneDrive/Pulpit/Studia/6 Semestr/SPD/2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/adam9/OneDrive/Pulpit/Studia/6 Semestr/SPD/2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
