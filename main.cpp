@@ -11,14 +11,11 @@ void testWczytywanie(problem &p){
         std::cout<<z.getTerminDostepnosci()<<" "<<z.getCzasWykonania()<<" "<<z.getCzasStygniecia()<<std::endl;
 
     }
-
-
-
 }
 
 int main() {
     problem p;
-    if(wczytywanie("SCHRAGE2.DAT",p))
+    if(wczytywanie("SCHRAGE2.DAT", p))
         testWczytywanie(p);
 
     return 0;

@@ -56,7 +56,7 @@ public:
     void addZadanie(zadanie j) { zadaniaWProblemie.push_back(j); };
     const int getIx(zadanie j);
     const zadanie getZadanie(int ix);
-    void removeZadanie(std::vector<zadanie> p, int ix);
+    void removeZadanie(std::vector<zadanie> &p, int ix);
     const std::vector<zadanie> getzadaniaWProblemie() const {return zadaniaWProblemie;};
     void setPoczatkowaLiczbaZadan(int lZadan){poczatkowaliczbaZadan = lZadan;};
     const int getPoczatkowaLiczbaZadan(){ return poczatkowaliczbaZadan; };
