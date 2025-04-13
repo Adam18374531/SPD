@@ -6,6 +6,16 @@ problem::problem() {
 
 }
 
+void rozwiazanie::show(){
+    for(int i=0;i<rozw.size();i++){
+        std::cout<<rozw.at(i)<<", ";
+    }
+    std::cout<<std::endl;
+    std::cout<<"kryterium: "<<kryterium<<std::endl;
+}
+
+
+
 const int problem::getIx(zadanie j){
     for(int i=0; i<getLiczbaZadan();i++){
         if(j==zadaniaWProblemie[i]) return i;
@@ -17,7 +27,8 @@ const zadanie problem::getZadanie(int ix) {
     if(ix<zadaniaWProblemie.size())
         return zadaniaWProblemie.at(ix);
 
-    else /*error*/;
+    else /*error*/
+        return zadaniaWProblemie.at(ix);
 }
 
 void problem::removeZadanie( int ix){
@@ -52,26 +63,25 @@ int findMinR_Ix(std::vector<zadanie> p){
 
 //czas0: r + p, czas_end: czas0 + q
 int rozwiazanie::countCzasWykonania(std::vector<zadanie> p){
-    int czas0 = 0;
-    int czas_end=0;
+    int t_na_maszynie = 0, t_end = 0;
     int ix_badanego_zadania;
-//    zadanie badane_zad;
     for(int i=0;i<p.size();i++){
         ix_badanego_zadania = getRozwiazanie().at(i);
         zadanie badane_zad = p.at( ix_badanego_zadania );
-        //update r if smaller
-        if(czas0 < badane_zad.getTerminDostepnosci())
-            czas0 = badane_zad.getTerminDostepnosci();
+
+        //check if there is wait time till r
+        if(t_na_maszynie < badane_zad.getTerminDostepnosci())
+            t_na_maszynie = badane_zad.getTerminDostepnosci();
 
         //add p value
-        czas0 += badane_zad.getCzasWykonania();
+        t_na_maszynie += badane_zad.getCzasWykonania();
 
-        //update q if smaller
-        if(czas_end < czas0 + badane_zad.getCzasStygniecia())
-            czas_end = czas0 + badane_zad.getCzasStygniecia();
+        //update q if new is longer
+        if(t_end < t_na_maszynie + badane_zad.getCzasStygniecia())
+            t_end = t_na_maszynie + badane_zad.getCzasStygniecia();
     }
-    setKryterium(czas_end);
-    return czas_end;
+    setKryterium(t_end);
+    return t_end;
 }
 
 void problem::sort_r() {
@@ -106,6 +116,28 @@ void rozwiazanie::rozwSchrage(problem p){
     setKryterium(countCzasWykonania(p.getProblem()));
 
 }
+
+//rozwiazanie problem::rozwSchrage(){
+//    std::vector<zadanie> p = getProblem();
+//    std::vector<int> ixs;
+//    ixs.reserve(p.size());
+//
+//    int dodawanyIx;
+//
+//    while(!p.empty()){
+//        dodawanyIx = findMinR_Ix(p);
+//        ixs.push_back( dodawanyIx );
+//
+//        removeZadanie(p, dodawanyIx);
+//    }
+//
+//    rozwiazanie r_schrage;
+//    r_schrage.setRozwiazanie(ixs);
+//    r_schrage.countCzasWykonania(getProblem());
+//    return r_schrage;
+//}
+
+
 
 void rozwiazanie::przegladZupelny(std::vector<zadanie> p) {
     int n = p.size();

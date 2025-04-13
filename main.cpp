@@ -25,11 +25,15 @@ int main() {
 //    std::cout<<"Rozwiazanie Cmax: "<<rozw.getKryterium()<<std::endl;
 //
 //    rozw.przegladZupelny(p.getProblem());
-    rozw.rozwSchrage(p);
+//    rozw.rozwSchrage(p);
 //    rozw.countCzasWykonania(p.getProblem());
 //    p.sort_r();
 //    p.sort_q();
 //    testWczytywanie(p);
+
+//    rozwiazanie r_sch = p.rozwSchrage();
+
+//    r_sch.show();
     std::cout<<"Rozwiazanie Cmax: "<<rozw.getKryterium()<<std::endl;
     return 0;
 }

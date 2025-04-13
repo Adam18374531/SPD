@@ -69,6 +69,7 @@ public:
     int countCzasWykonania(std::vector<zadanie> p);
     void przegladZupelny(std::vector<zadanie> p);
     void wlasnyAlgorytm(problem p);
+    void show();
     void rozwSchrage(problem p);
 };
 #endif
