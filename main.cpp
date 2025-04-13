@@ -1,7 +1,6 @@
 #include <iostream>
 #include "wczytywanie.h"
 
-
 void testWczytywanie(problem &p){
     std::cout<<p.getLiczbaZadan()<<std::endl;
 
@@ -17,6 +16,10 @@ int main() {
     problem p;
     if(wczytywanie("SCHRAGE2.DAT", p))
         testWczytywanie(p);
+
+    rozwiazanie r_sch = p.rozwSchrage();
+
+    r_sch.show();
 
     return 0;
 }

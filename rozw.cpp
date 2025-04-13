@@ -2,6 +2,14 @@
 
 rozwiazanie::rozwiazanie(){}
 
+void rozwiazanie::show(){
+	for(int i=0;i<rozw.size();i++){
+		std::cout<<rozw.at(i)<<", ";
+	}
+	std::cout<<std::endl;
+	std::cout<<"kryterium: "<<kryterium<<std::endl;
+}
+
 problem::problem() {
 
 }
@@ -17,7 +25,8 @@ const zadanie problem::getZadanie(int ix) {
     if(ix<zadaniaWProblemie.size())
         return zadaniaWProblemie.at(ix);
 
-    else /*error*/;
+    else /*error*/
+	return zadaniaWProblemie.at(ix);
 }
 
 void problem::removeZadanie(std::vector<zadanie> &p, int ix){
@@ -25,12 +34,14 @@ void problem::removeZadanie(std::vector<zadanie> &p, int ix){
 }
 
 rozwiazanie problem::rozwiaz() {
+    rozwiazanie r;
     /* 
     kolejka priorytetowa
     zrob kopiec rozwiazan: permutacji liczb od 0 do getLiczbaZadan()
      * posortuj po kryterium
      * zwroc rozwiazanie o max kryterium (glowe kopca?)
      * */
+     return r;
 }
 
 /*Algorytm Schrage bez przerwan*/
@@ -49,28 +60,27 @@ int findMinR_Ix(std::vector<zadanie> p){
     return minRIx;
 }
 
-//czas0: r + p, czas_end: czas0 + q
+//t_na_maszynie: r + p, t_end: t_na_maszynie + q
 int rozwiazanie::countCzasWykonania(std::vector<zadanie> p){
-    int czas0 = 0;
-    int czas_end=0;
+    int t_na_maszynie = 0, t_end = 0;
     int ix_badanego_zadania;
-    zadanie badane_zad;
     for(int i=0;i<p.size();i++){
         ix_badanego_zadania = getRozwiazanie().at(i);
-        badane_zad = p.at( ix_badanego_zadania );
-        //update r if smaller
-        if(czas0 < badane_zad.getTerminDostepnosci())
-            czas0 = badane_zad.getTerminDostepnosci();
+	zadanie badane_zad = p.at( ix_badanego_zadania );
+
+        //check if there is wait time till r
+        if(t_na_maszynie < badane_zad.getTerminDostepnosci())
+            t_na_maszynie = badane_zad.getTerminDostepnosci();
 
         //add p value
-        czas0 += badane_zad.getCzasWykonania();
+        t_na_maszynie += badane_zad.getCzasWykonania();
         
-        //update q if smaller
-        if(czas_end < czas0 + badane_zad.getCzasStygniecia())
-            czas_end = czas0 + badane_zad.getCzasStygniecia();
+        //update q if new is longer
+        if(t_end < t_na_maszynie + badane_zad.getCzasStygniecia())
+            t_end = t_na_maszynie + badane_zad.getCzasStygniecia();
     }
-    setKryterium(czas_end);
-    return czas_end;
+    setKryterium(t_end);
+    return t_end;
 }
 
 rozwiazanie problem::rozwSchrage(){
@@ -83,7 +93,8 @@ rozwiazanie problem::rozwSchrage(){
     while(!p.empty()){
         dodawanyIx = findMinR_Ix(p);
         ixs.push_back( dodawanyIx );
-        removeZadanie(p, dodawanyIx);
+
+	removeZadanie(p, dodawanyIx);
     }
     
     rozwiazanie r_schrage;

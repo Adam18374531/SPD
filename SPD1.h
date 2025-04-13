@@ -42,6 +42,7 @@ class rozwiazanie{
         bool isLongerThanKryterium(int czas) { return czas>getKryterium();};
         int countKryterium(std::vector<zadanie> p);
         int countCzasWykonania(std::vector<zadanie> p);
+	void show();
 };
 
 class problem{
