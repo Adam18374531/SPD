@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <queue> 
 #include <iostream>
+#include <climits>
 
 
 class zadanie{
@@ -34,9 +35,8 @@ private:
     int poczatkowaliczbaZadan;
 public:
     problem();
-    const std::vector<zadanie> getProblem() { return zadaniaWProblemie; };
-    const int getLiczbaZadan(){ return zadaniaWProblemie.size(); };
-    const bool isValid(){ return zadaniaWProblemie.empty(); };//czy vector niepusty
+    const int getLiczbaZadan() const { return zadaniaWProblemie.size(); };
+    const bool isValid() const { return zadaniaWProblemie.empty(); };//czy vector niepusty
     void addZadanie(zadanie j) { zadaniaWProblemie.push_back(j); };
     const int getIx(zadanie j);
     const zadanie getZadanie(int ix);

@@ -8,7 +8,7 @@ void testWczytywanie(problem &p){
     for(int i = 0;i<p.getLiczbaZadan();i++ )
     {
         zadanie z = p.getZadanie(i);
-        std::cout<<z.getTerminDostepnosci()<<" "<<z.getCzasWykonania()<<" "<<z.getCzasStygniecia()<<std::endl;
+        std::cout<<"zad "<<i<<": "<<z.getTerminDostepnosci()<<" "<<z.getCzasWykonania()<<" "<<z.getCzasStygniecia()<<std::endl;
 
     }
     std::cout<<std::endl;
@@ -16,24 +16,22 @@ void testWczytywanie(problem &p){
 
 int main() {
     problem p;
-    if(wczytywanie("SCHRAGE2.DAT", p))
+    if(wczytywanie("schrage/SCHRAGE1.DAT", p))
         testWczytywanie(p);
-    rozwiazanie rozw;
+    rozwiazanie rozw_wl, rozw_bf;
 
-//    p.removeZadanie(0);
-//    rozw.wlasnyAlgorytm(p);
-//    std::cout<<"Rozwiazanie Cmax: "<<rozw.getKryterium()<<std::endl;
-//
-//    rozw.przegladZupelny(p.getProblem());
-//    rozw.rozwSchrage(p);
-//    rozw.countCzasWykonania(p.getProblem());
-//    p.sort_r();
-//    p.sort_q();
-//    testWczytywanie(p);
+    rozw_wl.wlasnyAlgorytm(p);
+    std::cout<<"Algorytm wlasny: "<<std::endl;
+    rozw_wl.show();
 
-//    rozwiazanie r_sch = p.rozwSchrage();
+    rozw_bf.przegladZupelny(p.getzadaniaWProblemie());
+    std::cout<<"\nBrute force: "<<std::endl;
+    rozw_bf.show();
 
-//    r_sch.show();
-    std::cout<<"Rozwiazanie Cmax: "<<rozw.getKryterium()<<std::endl;
+    /*rozw_sch.rozwSchrage(p);
+    std::cout<<"\nSchrage: "<<std::endl;
+    r_sch.show();
+    */
+
     return 0;
 }
