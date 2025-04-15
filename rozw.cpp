@@ -27,7 +27,7 @@ const zadanie problem::getZadanie(int ix) {
         return zadaniaWProblemie.at(ix);
 }
 
-void problem::removeZadanie( int ix){
+void problem::removeZadanie(int ix){
     zadaniaWProblemie.erase(zadaniaWProblemie.begin() + ix);
 
 }
@@ -67,14 +67,10 @@ void problem::sort_q() {
     });
 }
 
-/*
- * Algorytm sortuje najpierw malejaco po czasie stygniecia
- * Jeżeli dostepny jest dane zadanie z najwiekszym czasem stygniecia to jest ono wykonywane
- * W przeciwnym razie jest brany nastepny element
- */
-void rozwiazanie::wlasnyAlgorytm(problem p) {
-    p.sort_q();
-    //testWczytywanie2(p);
+#include "SPD1.h"
+
+void rozwiazanie::r_rosnaco(problem p){
+    p.sort_r();
     int czas = 0;
     bool znalezione;
     int l_zadan = p.getzadaniaWProblemie().size();
@@ -90,20 +86,22 @@ void rozwiazanie::wlasnyAlgorytm(problem p) {
                 czas += p.getZadanie(i).getCzasWykonania();
                 wykonane[i] = true;
                 znalezione = true;
-                //std::cout << "Dodano zadanie: " << i <<" (q = "<<p.getZadanie(i).getCzasStygniecia()<< "), czas: " << czas << std::endl;
                 break;
             }
         }
         if (!znalezione) {
-            // jeśli nie ma dostępnych zadań, zwiększ czas
+            // jeĹ›li nie ma dostÄ™pnych zadaĹ„, zwiÄ™ksz czas
             czas++;
         }
     }
-    std::cout<<std::endl;
     
     setRozwiazanie(kolejnosc);
-    setKryterium(countCzasWykonania(p.getzadaniaWProblemie()));
+    countCzasWykonania(p.getzadaniaWProblemie());
+}
 
+void rozwiazanie::q_malejaco(problem p){
+    p.sort_q();
+    countCzasWykonania(p.getzadaniaWProblemie());
 }
 
 /*Algorytm Schrage bez przerwan*/
@@ -138,7 +136,7 @@ void rozwiazanie::rozwSchrage(problem p){
     }
 
     setRozwiazanie(ixs);
-    setKryterium(countCzasWykonania(p.getzadaniaWProblemie()));
+    countCzasWykonania(p.getzadaniaWProblemie());
 
 }
 
@@ -172,4 +170,40 @@ void testWczytywanie2(problem &p){
         std::cout<<z.getTerminDostepnosci()<<" "<<z.getCzasWykonania()<<" "<<z.getCzasStygniecia()<<std::endl;
     }
     std::cout<<std::endl;
+}
+
+/*
+ * Algorytm sortuje najpierw malejaco po czasie stygniecia
+ * Jeżeli dostepny jest dane zadanie z najwiekszym czasem stygniecia to jest ono wykonywane
+ * W przeciwnym razie jest brany nastepny element
+ */
+void rozwiazanie::wlasnyAlgorytm(problem p) {
+    p.sort_q();
+    int czas = 0;
+    bool znalezione;
+    int l_zadan = p.getzadaniaWProblemie().size();
+
+    std::vector<int> kolejnosc;
+    std::vector<bool> wykonane(l_zadan, false);
+
+    while( kolejnosc.size() < l_zadan ) {
+        znalezione = false;
+        for (int i = 0; i < l_zadan; i++) {
+            if (!wykonane[i] && czas >= p.getZadanie(i).getTerminDostepnosci() ) {
+                kolejnosc.push_back(i);
+                czas += p.getZadanie(i).getCzasWykonania();
+                wykonane[i] = true;
+                znalezione = true;
+                break;
+            }
+        }
+        if (!znalezione) {
+            // jeśli nie ma dostępnych zadań, zwiększ czas
+            czas++;
+        }
+    }
+    
+    setRozwiazanie(kolejnosc);
+    countCzasWykonania(p.getzadaniaWProblemie());
+
 }

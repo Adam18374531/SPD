@@ -28,7 +28,6 @@ public:
 };
 
 
-
 class problem{
 private:
     std::vector<zadanie> zadaniaWProblemie; //zbior zadan w problemie
@@ -42,14 +41,13 @@ public:
     const zadanie getZadanie(int ix);
     void removeZadanie( int ix);
     const std::vector<zadanie> getzadaniaWProblemie() const {return zadaniaWProblemie;};
-    void setPoczatkowaLiczbaZadan(int lZadan){poczatkowaliczbaZadan = lZadan;};
+    void setPoczatkowaLiczbaZadan(int l){ poczatkowaliczbaZadan = l; };
     const int getPoczatkowaLiczbaZadan(){ return poczatkowaliczbaZadan; };
     void sort_r();                  //Sortowanie rosnace po r
-    void sort_q();                  //Sortowanie rosnace po q
-//    rozwiazanie rozwiaz();
-
-
+    void sort_q();                  //Sortowanie malejace po q
 };
+
+
 class rozwiazanie{
 private:
     std::vector<int> rozw; //kolejnosc indeksow zadan w problemie
@@ -71,5 +69,7 @@ public:
     void wlasnyAlgorytm(problem p);
     void show();
     void rozwSchrage(problem p);
+    void r_rosnaco(problem p);
+    void q_malejaco(problem p);
 };
 #endif
